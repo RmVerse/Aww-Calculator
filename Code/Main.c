@@ -15,7 +15,7 @@ struct Value {
 
 int main(void) {
 
-
+  AwwCalculator();
 
 
   return REPORT_ACTIVE_FUNCTION_END;
@@ -24,7 +24,12 @@ int main(void) {
 int AwwCalculator() {
   printf("Put in :");
   
+  scanf("%s" , &Set.o);
+  SetValue(Set.o);
   
+  Convert(GetValue());
+  
+  printf("%lf" , Set.result);
   
 
   return REPORT_ACTIVE_FUNCTION_END;
@@ -33,16 +38,16 @@ int AwwCalculator() {
 void Convert(char* value) {
   
   int index = 0;
-  char
+  char result;
   
   for(index = strlen(GetValue());index > 0;index --) {
-    if(!GetValue()[index] > 0 && GetValue()[index] < z) {
-      
-    
+    if(!GetValue()[index] > '0' && GetValue()[index] < 'z') {
+      SetValueResult(GetValue()[index] - 32);    
+      break;
     }
   
   }
-  SetValueResult();
+  
 
 } 
 
@@ -54,13 +59,11 @@ double GetValueResult() {
   return Set.result;
 }
 
-void SetValue(char* value[128]) {
+void SetValue(char value[128]) {
   int index = 0;
   for (index = strlen(Set.o);index > 0;index --) {
-    Set.o[index] = *value[index];
+    Set.o[index] = value[index];
   }
-  
-  
 }
 
 char* GetValue() {
