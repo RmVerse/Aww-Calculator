@@ -51,7 +51,7 @@ int AwwCalculator() {
 
 // 合法性验证 : 检查用户层 UserSurface.String 每一位字符是否有效并且表达式无误
 int VerifyDataRational() {
-  if (!VerifyDataRational_InternalSymbol() && VerifyDataRational_Monomial()) {
+  if (!(VerifyDataRational_InternalSymbol() && VerifyDataRational_Monomial())) {
     // 此處輸出錯誤列表
     return 0;
   }
@@ -168,6 +168,8 @@ inline int VerifyDataPath_Monomial_FindInternalSymbol_FindNumber() {
       return 1;
     }
   }
+
+  return 0;
 }
 // 起始符号必须是数字或是定义符号
 inline int VerifyDataPath_Monomial_FindInternalSymbol_FindStarIndexIsNumber() {
