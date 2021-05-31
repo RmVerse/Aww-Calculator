@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "Other.Platform.H.vec.Description.h"
 #include "Declaration.h"
 #include "Report.h"
 
@@ -12,9 +13,9 @@ struct InternalSurfaceIndexValue {
   double Result;
 
 } InternalSurface;
-struct SystemSurfaceIndexValue {
-  char* Message;
-} System;
+//struct SystemSurfaceIndexValue {
+//  char Message[128];
+//} System;
 
 int InternalSymbol_Active = 0;
 
@@ -49,26 +50,32 @@ int AwwCalculator() {
   return 1;
 }
 
-// 合法性验证 : 检查用户层 UserSurface.String 每一位字符是否有效并且表达式无误
+
 int VerifyDataRational() {
-  if (!(VerifyDataRational_InternalSymbol() && VerifyDataRational_Monomial())) {
+  if (!(VerifyDataRational_Symbol_InternalSymbol() && VerifyDataRational_Symbol_Monomial())) {
     // 此處輸出錯誤列表
     return 0;
   }
 
   return 1;
 }
-// 合法性验证分支 : 验证内部符号
-int VerifyDataRational_InternalSymbol() {
+
+int VerifyDataRational_Symbol_InternalSymbol() {
   for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;
        Index--) {
     // 名字去掉Continuous
-    if (!(VerifyDataRational_InternalSymbolContinuous_Arithmetic_Basic(Index) ||
-          VerifyDataRational_InternalsymbolContinuous_Arithmetic_Pro(Index) ||
-          VerifyDataRational_InternalSymbolContinuous_Logic(Index) ||
-          VerifyDataRational_InternalSymbolContinuous_Number(Index))) {
+    if (!(VerifyDataRational_Symbol_InternalSymbolContinuous_Arithmetic_Basic(Index) ||
+          VerifyDataRational_Symbol_InternalsymbolContinuous_Arithmetic_Pro(Index) ||
+          VerifyDataRational_Symbol_InternalSymbolContinuous_Logic(Index) ||
+          VerifyDataRational_Symbol_InternalSymbolContinuous_Number(Index))) {
       printf("第 %d 位字符 '%c' 錯誤 \n", Index, GetUserSurfaceValue()[Index]);
-      SetLog(Char_ToString(&GetUserSurfaceValue()[Index]));
+
+      printf("%c", GetUserSurfaceValue_ToIndex(Index));
+      
+      // Fuck this :)
+      //_IO_File_Log(GetUserSurfaceValue_ToIndex(Index),'-');
+
+      
 
       // return 0;
     }
@@ -76,8 +83,8 @@ int VerifyDataRational_InternalSymbol() {
 
   return 1;
 }
-// 合法性验证分支 : 验证定义符号 [未启用]
-int VerifyDataRational_ExternalSymbol(int index) {
+
+int VerifyDataRational_Symbol_ExternalSymbol(int index) {
   char message = GetUserSurfaceValue()[index];
 
   if (message == '=' || message == ':') {
@@ -86,20 +93,20 @@ int VerifyDataRational_ExternalSymbol(int index) {
 
   return 0;
 }
-// 合法性验证分支 : 验证连续内部符号 [未启用]
-int VerifyDataRational_InternalSymbolContinuous() {
+
+int VerifyDataRational_Symbol_InternalSymbolContinuous() {
   for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;
        Index--) {
-    if (VerifyDataRational_InternalSymbolContinuousNext(Index) &&
-        VerifyDataRational_InternalSymbolContinuousNext(Index - 1)) {
+    if (VerifyDataRational_Symbol_InternalSymbolContinuousNext(Index) &&
+        VerifyDataRational_Symbol_InternalSymbolContinuousNext(Index - 1)) {
       return 0;
     }
   }
 
   return 1;
 }
-// 合法性验证分支 : 验证连续内部符号下一位 [未启用]
-inline int VerifyDataRational_InternalSymbolContinuousNext(int Index) {
+
+inline int VerifyDataRational_Symbol_InternalSymbolContinuousNext(int Index) {
   char message = GetUserSurfaceValue()[Index];
   if (message == '+' || message == '-') {
     return 1;
@@ -108,14 +115,14 @@ inline int VerifyDataRational_InternalSymbolContinuousNext(int Index) {
   return 0;
 }
 
-inline int VerifyDataRational_InternalSymbolContinuous_Logic(int Index) {
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Logic(int Index) {
   char Message = GetUserSurfaceValue()[Index];
   if (Message == '&' || Message == '|' || Message == ' ' || Message == '\0') {
     return 1;
   }
   return 0;
 }
-inline int VerifyDataRational_InternalsymbolContinuous_Arithmetic_Pro(
+inline int VerifyDataRational_Symbol_InternalsymbolContinuous_Arithmetic_Pro(
     int Index) {
   char Message = GetUserSurfaceValue()[Index];
   if (Message == '!' || Message == '*' || Message == '/' || Message == '%') {
@@ -123,7 +130,7 @@ inline int VerifyDataRational_InternalsymbolContinuous_Arithmetic_Pro(
   }
   return 0;
 }
-inline int VerifyDataRational_InternalSymbolContinuous_Arithmetic_Basic(
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Arithmetic_Basic(
     int Index) {
   char Message = GetUserSurfaceValue()[Index];
   if (Message == '+' || Message == '-') {
@@ -131,7 +138,7 @@ inline int VerifyDataRational_InternalSymbolContinuous_Arithmetic_Basic(
   }
   return 0;
 }
-inline int VerifyDataRational_InternalSymbolContinuous_Number(int Index) {
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Number(int Index) {
   char Message = GetUserSurfaceValue()[Index];
   if (Message >= '0' && Message <= '9') {
     return 1;
@@ -139,9 +146,9 @@ inline int VerifyDataRational_InternalSymbolContinuous_Number(int Index) {
   return 0;
 }
 
-// 合法性验证分支 : 验证表达式合法性
-int VerifyDataRational_Monomial() {
-  if (!VerifyDataRational_Monomial_FindInternalSymbol()) {
+
+int VerifyDataRational_Symbol_Monomial() {
+  if (!VerifyDataRational_Symbol_Monomial_FindInternalSymbol()) {
 
     return 0;
   }
@@ -150,7 +157,7 @@ int VerifyDataRational_Monomial() {
 }
 
 // 寻找内部符号
-int VerifyDataRational_Monomial_FindInternalSymbol() {
+int VerifyDataRational_Symbol_Monomial_FindInternalSymbol() {
   if (VerifyDataPath_Monomial_FindInternalSymbol_FindStarIndexIsNumber() && VerifyDataPath_Monomial_FindInternalSymbol_FindNumber()) {
     return 1;
   }
@@ -164,7 +171,7 @@ int VerifyDataRational_Monomial_FindInternalSymbol() {
 inline int VerifyDataPath_Monomial_FindInternalSymbol_FindNumber() {
   for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;
        Index--) {
-    if (VerifyDataRational_InternalSymbolContinuous_Number(Index)) {
+    if (VerifyDataRational_Symbol_InternalSymbolContinuous_Number(Index)) {
       return 1;
     }
   }
@@ -173,7 +180,7 @@ inline int VerifyDataPath_Monomial_FindInternalSymbol_FindNumber() {
 }
 // 起始符号必须是数字或是定义符号
 inline int VerifyDataPath_Monomial_FindInternalSymbol_FindStarIndexIsNumber() {
-  if (VerifyDataRational_InternalSymbolContinuous_Number(0)) {
+  if (VerifyDataRational_Symbol_InternalSymbolContinuous_Number(0)) {
     return 1;
   }
   return 0;
@@ -186,11 +193,13 @@ int VerifyDataPath() { VerifyDataPath_VerifyMultinomial(); }
 // 路径分析分支 : 验证路径能否被分组为多项式
 int VerifyDataPath_VerifyMultinomial() { VerifyDataPath();
   // 寻找所有的计算符号坐标
-  
+  
+
 }
 
 inline int VerifyDataPath_() {
-  
+  
+
 
 }
 
@@ -206,33 +215,37 @@ unsigned int GetUserSurfaceValueStrlength_ToIndex() {
 void SetUserSurfaceValue(char* Message) { *UserSurface.String = *Message; }
 char* GetUserSurfaceValue() { return UserSurface.String; }
 
-/// 设置连续内部符号活动状态
+char GetUserSurfaceValue_ToIndex(int Index) {
+  return GetUserSurfaceValue()[Index];
+}
+
+
 void SetInternalSymbolActive(int Active) { InternalSymbol_Active = Active; }
-/// 获取连续内部符号活动状态
+
 int GetInternalSymbolActive() { return InternalSymbol_Active; }
 
-int SetLog(char* Message) {
-  SystemIO_Write(Message);
+//int SetLog(char* Message) {
+//  SystemIO_Write(Message);
+//
+//  return 1;
+//}
+//
+//int SystemIO_Write(char* Message) {
+//  FILE* LocalFilePath = NULL;
+//  fopen_s(&LocalFilePath, "C:/Users/Public/Documents/RMDUST/Log.txt", "a+");
+//
+//  if (LocalFilePath == NULL) {
+//    return 0;
+//  }
+//
+//  fprintf_s(LocalFilePath, Message);
+//
+//  fclose(LocalFilePath);
+//  return 1;
+//}
 
-  return 1;
-}
 
-int SystemIO_Write(char* Message) {
-  FILE* LocalFilePath = NULL;
-  fopen_s(&LocalFilePath, "Log.txt", "a+");
-
-  if (LocalFilePath == NULL) {
-    return 0;
-  }
-
-  fprintf_s(LocalFilePath, Message, "\n");
-
-  fclose(LocalFilePath);
-  return 1;
-}
 
 char* Char_ToString(char* Message) {
-  char Result[2] = " ";
-  Result[0] = *Message;
   return Message;
 }

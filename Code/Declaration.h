@@ -5,38 +5,42 @@
 
 int AwwCalculator();
 
+// 合法性验证 : 检查用户层 UserSurface.String 每一位字符是否有效并且表达式无误
 int VerifyDataRational();
-int VerifyDataRational_InternalSymbol();
-int VerifyDataRational_InternalSymbolContinuous();
-inline int VerifyDataRational_InternalSymbolContinuousNext(int Index);
-inline int VerifyDataRational_InternalSymbolContinuous_Logic(int Index);
-inline int VerifyDataRational_InternalsymbolContinuous_Arithmetic_Pro(int Index);
-inline int VerifyDataRational_InternalSymbolContinuous_Arithmetic_Basic(int Index);
-inline int VerifyDataRational_InternalSymbolContinuous_Number(int Index);
+// 合法性验证分支 : 验证内部符号
+int VerifyDataRational_Symbol_InternalSymbol();
+// 合法性验证分支 : 验证连续内部符号 [未启用]
+int VerifyDataRational_Symbol_InternalSymbolContinuous();
+// 合法性验证分支 : 验证连续内部符号下一位 [未启用]
+inline int VerifyDataRational_Symbol_InternalSymbolContinuousNext(int Index);
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Logic(int Index);
+inline int VerifyDataRational_Symbol_InternalsymbolContinuous_Arithmetic_Pro(int Index);
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Arithmetic_Basic(int Index);
+inline int VerifyDataRational_Symbol_InternalSymbolContinuous_Number(int Index);
 
-int VerifyDataRational_Monomial();
-int VerifyDataRational_Monomial_FindInternalSymbol();
+// 合法性验证分支 : 验证表达式合法性
+int VerifyDataRational_Symbol_Monomial();
+// 寻找内部符号
+int VerifyDataRational_Symbol_Monomial_FindInternalSymbol();
+// 
 inline int VerifyDataPath_Monomial_FindInternalSymbol_FindStarIndexIsNumber();
 inline int VerifyDataPath_Monomial_FindInternalSymbol_FindNumber();
-
-
-
-
-
-void SetValueResult(double value);
-double GetValueResult();
-void SetValue(char value[128]);
 
 size_t GetUserSurfaceValueStrlength();
 unsigned int GetUserSurfaceValueStrlength_ToIndex();
 void SetUserSurfaceValue(char* Message);
 char* GetUserSurfaceValue();
+char GetUserSurfaceValue_ToIndex(int Index);
+
+
 
 void SetInternalSymbolActive(int Active);
 int GetInternalSymbolActive();
 
-int SetLog(char* Message);
+// 写入日志
+int SetLog(char Message[100]);
 int SystemIO_Write(char* Message);
+inline int SystemIO_Folder_Create(char fileNameAddress[]);
 
 char* Char_ToString(char* Message);
 #endif
