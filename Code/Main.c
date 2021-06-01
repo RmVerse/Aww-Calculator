@@ -20,6 +20,14 @@ struct InternalSurfaceIndexValue {
 int InternalSymbol_Active = 0;
 
 int main(void) {
+
+  Rmdust_Reset();
+  Rmdust_System_IO_Folder_Create("C:\\Users\\Public\\Documents\\RMDUST");
+
+
+
+
+
   AwwCalculator();
 
   return 0;
@@ -61,9 +69,9 @@ int VerifyDataRational() {
 }
 
 int VerifyDataRational_Symbol_InternalSymbol() {
-  for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;
-       Index--) {
-    // Ãû×ÖÈ¥µôContinuous
+  SetSystemMessage_Error_Addons_ToString("×Ö·ûåeÕ`");
+
+  for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;Index--) {
     if (!(VerifyDataRational_Symbol_InternalSymbolContinuous_Arithmetic_Basic(Index) ||
           VerifyDataRational_Symbol_InternalsymbolContinuous_Arithmetic_Pro(Index) ||
           VerifyDataRational_Symbol_InternalSymbolContinuous_Logic(Index) ||
@@ -72,14 +80,12 @@ int VerifyDataRational_Symbol_InternalSymbol() {
 
       printf("%c", GetUserSurfaceValue_ToIndex(Index));
       
-      // Fuck this :)
-      //_IO_File_Log(GetUserSurfaceValue_ToIndex(Index),'-');
+      SetSystemMessage_Error_Message_ToChar(GetUserSurfaceValue_ToIndex(Index));
 
-      
-
-      // return 0;
     }
   }
+
+  Rmdust_System_IO_WriteFile_Logs();
 
   return 1;
 }
@@ -216,7 +222,8 @@ void SetUserSurfaceValue(char* Message) { *UserSurface.String = *Message; }
 char* GetUserSurfaceValue() { return UserSurface.String; }
 
 char GetUserSurfaceValue_ToIndex(int Index) {
-  return GetUserSurfaceValue()[Index];
+  //return GetUserSurfaceValue()[Index];
+  return UserSurface.String[Index];
 }
 
 

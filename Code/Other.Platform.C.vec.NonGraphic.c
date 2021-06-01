@@ -1,24 +1,94 @@
 #include <direct.h>
 #include <io.h>
 #include <stdio.h>
-#include <windows.h>
 #include <time.h>
+#include <windows.h>
 
 #include "Other.Platform.H.vec.Description.h"
 
-void _Console_Write_WriteSleep(int sleepTime,char message[]) {
+struct SystemMessageSurfaceIndexValue {
+  char Message[128];
+  char Title[32];
+  char Addons[128];
+
+  // Do NOT touch !
+  int MessageIndex;
+} SystemMessage_Error, SystemMessage_Warning;
+
+int Rmdust_Reset() {
+  strcpy_s(SystemMessage_Error.Title, 32, "Error:\n");
+  strcpy_s(SystemMessage_Warning.Title, 32, "Warning:\n");
+
+  SystemMessage_Error.MessageIndex = 0;
+  SystemMessage_Warning.MessageIndex = 0;
+
+  return 1;
+}
+
+void SetSystemMessage_Error_Addons_ToString(char Message[]) {
+  strcpy_s(SystemMessage_Error.Addons,128,Message);
+}
+char *GetSystemMessage_Error_Addons_ToString() {
+  return SystemMessage_Error.Addons;
+}
+
+void SetSystemMessage_Error_MessageIndex(int Index) {
+  SystemMessage_Error.MessageIndex = Index;
+}
+int GetSystemMessage_Error_MessageIndex() {
+  return SystemMessage_Error.MessageIndex;
+}
+void SetSystemMessage_Warning_MessageIndex(int Index) {
+  SystemMessage_Warning.MessageIndex = Index;
+}
+int GetSystemMessage_Warning_MessageIndex() {
+  return SystemMessage_Warning.MessageIndex;
+}
+
+char *GetSystemMessage_Error_Title_ToString() {
+  return SystemMessage_Error.Title;
+}
+
+size_t GetsystemMessage_Error_MessageStrlength() {
+  return strlen(GetSystemMessage_Error_Message_ToString());
+}
+unsigned int GetsystemMessage_Error_MessageStrlength_ToIndex() {
+  return (unsigned int)(GetsystemMessage_Error_MessageStrlength() == 0
+                            ? 0
+                            : GetsystemMessage_Error_MessageStrlength() - 1);
+}
+
+void SetSystemMessage_Error_Message_ToString(char Message[]) {
+  strcpy_s(SystemMessage_Error.Message, 128, Message);
+}
+char *GetSystemMessage_Error_Message_ToString() {
+  return SystemMessage_Error.Message;
+}
+
+void SetSystemMessage_Error_Message_ToChar(char Message) {
+  SystemMessage_Error.Message[GetSystemMessage_Error_MessageIndex()] = Message;
+  SetSystemMessage_Error_MessageIndex(GetSystemMessage_Error_MessageIndex() +
+                                      1);
+}
+char GetSystemMessage_Error_Message_ToChar(int Index) {
+  return SystemMessage_Error.Message[Index];
+}
+
+void _Console_Write_WriteSleep(int sleepTime, char message[]) {
   Sleep(sleepTime);
   message != 0 ? printf("%s", message) : 0;
 }
-void _Console_Write_Repeatedly(int sleepTime,char message[], char messageTwo[], char messageThree[]) {
+void _Console_Write_Repeatedly(int sleepTime, char message[], char messageTwo[],
+                               char messageThree[]) {
   message != 0 ? printf("%s", message) : printf(" ");
   Sleep(sleepTime);
   messageTwo != 0 ? printf("%s", messageTwo) : printf(" ");
   Sleep(sleepTime);
   messageThree != 0 ? printf("%s", messageThree) : printf(" ");
   Sleep(sleepTime);
-}       
-void _Console_Write_CutToEnd(int startDelay, int endDelay, int whetherToEnd, char message[]) {
+}
+void _Console_Write_CutToEnd(int startDelay, int endDelay, int whetherToEnd,
+                             char message[]) {
   size_t TEMP;
   size_t callWidth = strlen(message);
   for (TEMP = 0; TEMP < callWidth; TEMP++) {
@@ -35,7 +105,8 @@ void _Console_Write_CutToEnd(int startDelay, int endDelay, int whetherToEnd, cha
     }
   }
 }
-void _Console_Write_CutToEndWithAscii( int startDelay, int endDelay, char message[]) {
+void _Console_Write_CutToEndWithAscii(int startDelay, int endDelay,
+                                      char message[]) {
   unsigned int buff;
   unsigned int TEMP = 0;
   unsigned int ntemp = 0;
@@ -49,7 +120,7 @@ void _Console_Write_CutToEndWithAscii( int startDelay, int endDelay, char messag
     buff = TEMP;
     for (ntemp = 0; ntemp < strlen(message); ntemp++) {
       if (message[ntemp] > message[buff]) {  // T>T h>T a>T
-        buff = ntemp;                  //	   0=1
+        buff = ntemp;                        //	   0=1
       }
     }
     if (buff != TEMP) {
@@ -60,16 +131,16 @@ void _Console_Write_CutToEndWithAscii( int startDelay, int endDelay, char messag
     system("cls");
   }
 }
-void _Console_Write_Frame(char log[],char mark,unsigned int short titleMode) {
-  for (int count = 0; count < 50;count ++) {
-    printf("%c",mark);
+void _Console_Write_Frame(char log[], char mark, unsigned int short titleMode) {
+  for (int count = 0; count < 50; count++) {
+    printf("%c", mark);
   }
   printf("\n");
 
   int logWidth = 0;
   for (unsigned int stTemp = 0; stTemp < strlen(log); stTemp++) {
     printf("%c", log[stTemp]);
-    logWidth ++;
+    logWidth++;
     if (logWidth == 48) {
       printf("\n\x20\x20");
       logWidth = 0;
@@ -85,16 +156,17 @@ void _Console_Write_Frame(char log[],char mark,unsigned int short titleMode) {
   }
 }
 void _Console_Write_LoadingAnimation(void) {
-  signed short int temp , tempTwo , count = 0;
+  signed short int temp, tempTwo, count = 0;
 
   for (temp = 0; temp < 120; temp++) {
-    temp <= 40 ? system("color f8") : temp <= 80 ? system("color f4") : system("color f6");
+    temp <= 40 ? system("color f8")
+               : temp <= 80 ? system("color f4") : system("color f6");
     for (tempTwo = 0; tempTwo < temp; tempTwo++) {
       printf("=");
     }
     printf(">\n");
 
-    count <= 100 ? printf("%d%%", count ++) : printf("Resource preparation");
+    count <= 100 ? printf("%d%%", count++) : printf("Resource preparation");
 
     Sleep(temp);
     system("cls");
@@ -104,13 +176,14 @@ void _Console_Write_LoadingAnimation(void) {
 void _Console_Write_LoadingAnimationSec(void) {
   unsigned short int temp;
   for (temp = 0; temp < 120; temp++) {
-    temp <= 40 ? system("color f8") : temp <= 80 ? system("color f4") : system("color f6");
+    temp <= 40 ? system("color f8")
+               : temp <= 80 ? system("color f4") : system("color f6");
     printf("=");
   }
   system("color f0");
   system("cls");
 }
-                   
+
 int _Data_Convert_AsciiToNum(int ascii) {
   if (ascii >= 48 && ascii <= 57) {
     ascii -= 48;
@@ -118,7 +191,8 @@ int _Data_Convert_AsciiToNum(int ascii) {
   }
   return -1;
 }
-char *_Data_Convert_ArrayLinkBoth(char object[], char message[], char result[]) {
+char *_Data_Convert_ArrayLinkBoth(char object[], char message[],
+                                  char result[]) {
   size_t callWidth = strlen(message);
   size_t toCallWidth = strlen(object);
   size_t temp = 0;
@@ -146,7 +220,7 @@ int _IO_File_Write(char fileNameAddress[], char mode[], char message[]) {
   if (fileAddress == NULL) {
     return -1;
   }
-  fprintf(fileAddress , "%s" , message);
+  fprintf(fileAddress, "%s", message);
   fclose(fileAddress);
   return 1;
 }
@@ -160,43 +234,36 @@ int _IO_File_Read_State(char fileNameAddress[]) {
     return 1;
   }
 }
-int _IO_File_Log(char log[] , char mark) {
-  FILE *logWrite = NULL;
-  fopen_s(&logWrite, "./resource/core/log.txt", "a+");
-  if (logWrite == NULL) {
-    return -1;
+
+/// +1 жиди
+int Rmdust_System_IO_WriteFile_Logs() {
+  FILE *FilePath = NULL;
+  fopen_s(&FilePath, "C:\\Users\\Public\\Documents\\RMDUST\\Log.txt", "a+");
+
+  if (FilePath == NULL) {
+    return 0;
   }
 
-  for (int count = 0; count < 50; count ++) {
-    fprintf(logWrite , "%c", mark);
-  }
-  fprintf(logWrite , "\n");
 
-  int logWidth = 0;
-  for (unsigned int stTemp = 0;stTemp < strlen(log);stTemp ++) {
-    fprintf(logWrite, "%c" , log[stTemp]);
-    logWidth ++;
-    if (logWidth == 48) {
-      fprintf(logWrite , "\n\x20\x20");
-      logWidth = 0;
-    }
-  }
-  fprintf(logWrite, "\n");
-  for (int newcount = 0; newcount < 50; newcount++) {
-    fprintf(logWrite, "%c", mark);
-  }
-  fprintf(logWrite, "\n");
 
-  fclose(logWrite);
+  fprintf(FilePath, "%s%s%s", GetSystemMessage_Error_Addons_ToString(),GetSystemMessage_Error_Title_ToString(),
+          "-----------------------\n");
+
+  fprintf(FilePath, "%s%s", GetSystemMessage_Error_Message_ToString(),
+          "\n-----------------------\n\n");
+
+  fclose(FilePath);
   return 1;
 }
-int _IO_Folder_Create(char fileNameAddress[]) {
-  if (_access(fileNameAddress, 0)) {
-    
-    return _mkdir(fileNameAddress);;
+
+int Rmdust_System_IO_Folder_Create(char FolderName[]) {
+  if (_access(FolderName, 0)) {
+    return _mkdir(FolderName);
   }
-  return -1;
+
+  return 0;
 }
+
 /*
 void _Square_puts_(int padding,int width,int height,char message) {
   char arr[2][2];
@@ -211,7 +278,7 @@ void _Square_puts_(int padding,int width,int height,char message) {
               arr[countInside][countOutside] = message;
             }
           } else {
-            arr[countInside][countOutside] = message;  
+            arr[countInside][countOutside] = message;
           }
         }
       }
@@ -220,7 +287,7 @@ void _Square_puts_(int padding,int width,int height,char message) {
       for(countOutside = 0;countOutside < height;countOutside ++) {
         for(countInside = 0;countInside < width;countInside ++) {
           arr[countInside][countOutside] = message;
-        } 
+        }
       }
       break;
     default :
@@ -228,9 +295,9 @@ void _Square_puts_(int padding,int width,int height,char message) {
   }
   for(countOutside = 0;countOutside < height;countOutside ++) {
     for(countInside = 0;countInside < width;countInside ++) {
-      printf("%c", arr[countInside][countOutside]);      
+      printf("%c", arr[countInside][countOutside]);
     }
-    puts("");     
+    puts("");
   }
 }
 
@@ -239,7 +306,7 @@ void _Triangle_puts_(int height){
   int countOutside,countInside;
   int i = 0;
 
-  s:;  
+  s:;
   for(countOutside = 0;countOutside < heightWidth;countOutside ++) {
     printf("  ");
   }
@@ -256,7 +323,9 @@ void _Triangle_puts_(int height){
   if(heightWidth != 0) {
     goto s;
   }
-  
+  
+
+
 }
 */
 
@@ -289,5 +358,5 @@ int _System_Time_GetMonth() {
  *      You can give me with "Error Report",I will look Carefully.
  *      You can Upgrade the "this.h" File,but you should have told me.
  *  About :
- *    Last Update date : 12-25-2020
+ *    Last Update date : 6-1-2021
  */
