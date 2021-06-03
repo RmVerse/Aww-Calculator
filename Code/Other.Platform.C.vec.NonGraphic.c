@@ -13,65 +13,59 @@ struct SystemMessageSurfaceIndexValue {
 
   // Do NOT touch !
   int MessageIndex;
-} SystemMessage_Error, SystemMessage_Warning;
+} SystemMessage;
 
 int Rmdust_Reset() {
-  strcpy_s(SystemMessage_Error.Title, 32, "Error:\n");
-  strcpy_s(SystemMessage_Warning.Title, 32, "Warning:\n");
 
-  SystemMessage_Error.MessageIndex = 0;
-  SystemMessage_Warning.MessageIndex = 0;
+  Rmdust_System_IO_WriteFile_Logs_Reset();
+  SetSystemMessage_MessageIndex(0);
+  
 
   return 1;
 }
 
-void SetSystemMessage_Error_Addons_ToString(char Message[]) {
-  strcpy_s(SystemMessage_Error.Addons,128,Message);
+void SetSystemMessage_Title_ToString(char Message[]) {
+  strcpy_s(SystemMessage.Title, 32, Message);
 }
-char *GetSystemMessage_Error_Addons_ToString() {
-  return SystemMessage_Error.Addons;
+char *GetSystemMessage_Title_ToString() { return SystemMessage.Title; }
+
+void SetSystemMessage_Addons_ToString(char Message[]) {
+  strcpy_s(SystemMessage.Addons,128,Message);
+}
+char *GetSystemMessage_Addons_ToString() {
+  return SystemMessage.Addons;
 }
 
-void SetSystemMessage_Error_MessageIndex(int Index) {
-  SystemMessage_Error.MessageIndex = Index;
+void SetSystemMessage_MessageIndex(int Index) {
+  SystemMessage.MessageIndex = Index;
 }
-int GetSystemMessage_Error_MessageIndex() {
-  return SystemMessage_Error.MessageIndex;
-}
-void SetSystemMessage_Warning_MessageIndex(int Index) {
-  SystemMessage_Warning.MessageIndex = Index;
-}
-int GetSystemMessage_Warning_MessageIndex() {
-  return SystemMessage_Warning.MessageIndex;
+int GetSystemMessage_MessageIndex() {
+  return SystemMessage.MessageIndex;
 }
 
-char *GetSystemMessage_Error_Title_ToString() {
-  return SystemMessage_Error.Title;
+size_t GetSystemMessage_MessageStrlength() {
+  return strlen(GetSystemMessage_Message_ToString());
 }
-
-size_t GetsystemMessage_Error_MessageStrlength() {
-  return strlen(GetSystemMessage_Error_Message_ToString());
-}
-unsigned int GetsystemMessage_Error_MessageStrlength_ToIndex() {
-  return (unsigned int)(GetsystemMessage_Error_MessageStrlength() == 0
+unsigned int GetSystemMessage_MessageStrlength_ToIndex() {
+  return (unsigned int)(GetSystemMessage_MessageStrlength() == 0
                             ? 0
-                            : GetsystemMessage_Error_MessageStrlength() - 1);
+                            : GetSystemMessage_MessageStrlength() - 1);
 }
 
-void SetSystemMessage_Error_Message_ToString(char Message[]) {
-  strcpy_s(SystemMessage_Error.Message, 128, Message);
+void SetSystemMessage_Message_ToString(char Message[]) {
+  strcpy_s(SystemMessage.Message, 128, Message);
 }
-char *GetSystemMessage_Error_Message_ToString() {
-  return SystemMessage_Error.Message;
+char *GetSystemMessage_Message_ToString() {
+  return SystemMessage.Message;
 }
 
-void SetSystemMessage_Error_Message_ToChar(char Message) {
-  SystemMessage_Error.Message[GetSystemMessage_Error_MessageIndex()] = Message;
-  SetSystemMessage_Error_MessageIndex(GetSystemMessage_Error_MessageIndex() +
+void SetSystemMessage_Message_ToChar(char Message) {
+  SystemMessage.Message[GetSystemMessage_MessageIndex()] = Message;
+  SetSystemMessage_MessageIndex(GetSystemMessage_MessageIndex() +
                                       1);
 }
-char GetSystemMessage_Error_Message_ToChar(int Index) {
-  return SystemMessage_Error.Message[Index];
+char GetSystemMessage_Message_ToChar(int Index) {
+  return SystemMessage.Message[Index];
 }
 
 void _Console_Write_WriteSleep(int sleepTime, char message[]) {
@@ -235,7 +229,15 @@ int _IO_File_Read_State(char fileNameAddress[]) {
   }
 }
 
-/// +1 жиди
+int Rmdust_System_IO_WriteFile_Logs_Reset() {
+  FILE *FilePath = NULL;
+  fopen_s(&FilePath, "C:\\Users\\Public\\Documents\\RMDUST\\Log.txt", "w+");
+
+  fclose(FilePath);
+  return 1;
+}
+
+/// +0 жиди
 int Rmdust_System_IO_WriteFile_Logs() {
   FILE *FilePath = NULL;
   fopen_s(&FilePath, "C:\\Users\\Public\\Documents\\RMDUST\\Log.txt", "a+");
@@ -244,13 +246,7 @@ int Rmdust_System_IO_WriteFile_Logs() {
     return 0;
   }
 
-
-
-  fprintf(FilePath, "%s%s%s", GetSystemMessage_Error_Addons_ToString(),GetSystemMessage_Error_Title_ToString(),
-          "-----------------------\n");
-
-  fprintf(FilePath, "%s%s", GetSystemMessage_Error_Message_ToString(),
-          "\n-----------------------\n\n");
+  fprintf(FilePath, "-%s\n%s%s;\n\n", GetSystemMessage_Title_ToString(),GetSystemMessage_Addons_ToString(),GetSystemMessage_Message_ToString());
 
   fclose(FilePath);
   return 1;
@@ -263,71 +259,6 @@ int Rmdust_System_IO_Folder_Create(char FolderName[]) {
 
   return 0;
 }
-
-/*
-void _Square_puts_(int padding,int width,int height,char message) {
-  char arr[2][2];
-  int countOutside,countInside;
-  switch(padding) {
-    case 0:
-      for(countOutside = 0;countOutside < height;countOutside ++) {
-        for(countInside = 0;countInside < width;countInside ++) {
-          if(countOutside != 0 && countOutside != (height-1)) {
-            arr[countInside+1][countOutside] = ' ';
-            if((countInside+1) == width || countInside == 0) {
-              arr[countInside][countOutside] = message;
-            }
-          } else {
-            arr[countInside][countOutside] = message;
-          }
-        }
-      }
-      break;
-    case 1:
-      for(countOutside = 0;countOutside < height;countOutside ++) {
-        for(countInside = 0;countInside < width;countInside ++) {
-          arr[countInside][countOutside] = message;
-        }
-      }
-      break;
-    default :
-      break;
-  }
-  for(countOutside = 0;countOutside < height;countOutside ++) {
-    for(countInside = 0;countInside < width;countInside ++) {
-      printf("%c", arr[countInside][countOutside]);
-    }
-    puts("");
-  }
-}
-
-void _Triangle_puts_(int height){
-  int heightWidth = height;
-  int countOutside,countInside;
-  int i = 0;
-
-  s:;
-  for(countOutside = 0;countOutside < heightWidth;countOutside ++) {
-    printf("  ");
-  }
-  printf("+");
-  for(countInside = 0;countInside < i;countInside ++) {
-    printf("+");
-  }
-  i += 2;
-  if(i != 0) {
-    printf("+");
-  }
-  printf("\n");
-  heightWidth = heightWidth - 1;
-  if(heightWidth != 0) {
-    goto s;
-  }
-  
-
-
-}
-*/
 
 /*
 int _System_Time_GetDay() {

@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "Other.Platform.H.vec.Description.h"
@@ -29,6 +30,8 @@ int main(void) {
 
 
   AwwCalculator();
+
+  system("start C:\\Users\\YCJX\\Desktop\\bre97-web$AwwCalculator\\AwwCalculator-C\\Release\\SystemConsole.exe");
 
   return 0;
 }
@@ -69,18 +72,16 @@ int VerifyDataRational() {
 }
 
 int VerifyDataRational_Symbol_InternalSymbol() {
-  SetSystemMessage_Error_Addons_ToString("×Ö·ûåeÕ`");
+  SetSystemMessage_Title_ToString("1");
+  SetSystemMessage_Addons_ToString("Error : From Function VerifyDataRational_Symbol_InternalSymbol\n");
 
   for (int Index = GetUserSurfaceValueStrlength_ToIndex(); Index >= 0;Index--) {
     if (!(VerifyDataRational_Symbol_InternalSymbolContinuous_Arithmetic_Basic(Index) ||
           VerifyDataRational_Symbol_InternalsymbolContinuous_Arithmetic_Pro(Index) ||
           VerifyDataRational_Symbol_InternalSymbolContinuous_Logic(Index) ||
           VerifyDataRational_Symbol_InternalSymbolContinuous_Number(Index))) {
-      printf("µÚ %d Î»×Ö·û '%c' åeÕ` \n", Index, GetUserSurfaceValue()[Index]);
-
-      printf("%c", GetUserSurfaceValue_ToIndex(Index));
       
-      SetSystemMessage_Error_Message_ToChar(GetUserSurfaceValue_ToIndex(Index));
+      SetSystemMessage_Message_ToChar(GetUserSurfaceValue_ToIndex(Index));
 
     }
   }
