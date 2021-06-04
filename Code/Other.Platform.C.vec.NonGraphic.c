@@ -233,6 +233,10 @@ int Rmdust_System_IO_WriteFile_Logs_Reset() {
   FILE *FilePath = NULL;
   fopen_s(&FilePath, "C:\\Users\\Public\\Documents\\RMDUST\\Log.txt", "w+");
 
+  if (FilePath == NULL) {
+    return -1;
+  }
+
   fclose(FilePath);
   return 1;
 }
