@@ -58,23 +58,22 @@ int SystemIO_Read_Form() {
     return 0;
   }
 
+  system("color f4");
+
   for (int Index = 0; Index < 512; Index++) {
+    
     // Form Lable : Start
     if (System.Message[Index] == '-') {
       if (System.Message[Index + 1] == '1') {
-        //system("color f4");
-
-        SetColor(18,0);
+        SetColor(FOREGROUND_RED, 1);
       }
-
       Index++;
       continue;
     }
 
     // Form Lable : End
     if (System.Message[Index] == ';') {
-
-
+      SetColor(9, 0);
       continue;
     }
 
@@ -91,7 +90,7 @@ int SystemIO_Read_Form() {
 
 
 
-VOID SetColor(UINT uFore, UINT uBack) {
+VOID SetColor(WORD uFore, WORD uBack) {
   HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
   SetConsoleTextAttribute(handle, uFore + uBack * 0x10);
 }

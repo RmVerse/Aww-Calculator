@@ -9,6 +9,6 @@ void SetSystemMessage_ToString(char Message[]);
 int SystemIO_ReadFile_ResetSystemMessage();
 int SystemIO_Read_Form();
 
-VOID SetColor(UINT uFore, UINT uBack);
+VOID SetColor(WORD uFore, WORD uBack);
 
 #endif
