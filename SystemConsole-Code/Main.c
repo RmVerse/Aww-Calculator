@@ -15,8 +15,20 @@ struct SystemSurfaceIndexValue {
 
 int main(void) {
 
-  SystemIO_ReadFile_ResetSystemMessage();
-  SystemIO_Read_Form();
+  // Error : Red+7
+  // Warning : 
+  // Non : 
+
+  while(1){
+
+    memset(System.Message, 0, sizeof System.Message); 
+
+    Sleep(1000);
+    system("cls");
+
+    SystemIO_ReadFile_ResetSystemMessage();
+    SystemIO_Read_Form();
+  }
 
   system("pause");
 
@@ -50,13 +62,17 @@ int SystemIO_ReadFile_ResetSystemMessage() {
   return 1;
 }
 
-int SystemIO_Read_Form() {
-  FILE* LocalFilePath = NULL;
-  fopen_s(&LocalFilePath, "C:\\Users\\Public\\Documents\\RMDUST\\Log.txt", "r");
+/*
+ * 关于文本内格式说明
+ * 
+ *  -;
+ *  -0Title-5
+ *  Addons
+ *  Message
+ *  -;
+ */
 
-  if (LocalFilePath == NULL) {
-    return 0;
-  }
+int SystemIO_Read_Form() {
 
   system("color f4");
 
@@ -64,29 +80,41 @@ int SystemIO_Read_Form() {
     
     // Form Lable : Start
     if (System.Message[Index] == '-') {
-      if (System.Message[Index + 1] == '1') {
-        SetColor(FOREGROUND_RED, 1);
+      
+      /* Lable Level
+       *  0 : Error
+       *  1 : Warning
+       *  2 : Non
+       */
+
+      Index ++;
+
+      if (System.Message[Index] == '0') {
+        SetColor(FOREGROUND_RED, 0);
+      } else if (System.Message[Index] == '1') {
+        SetColor(FOREGROUND_RED, 0);
+      } else if (System.Message[Index] == '2') {
       }
-      Index++;
+
+      // Form Lable : End
+      if (System.Message[Index] == ';') {
+        SetColor(FOREGROUND_RED, 2);
+        printf("\n--------------------------------------\n");
+      } else if (0) {
+      }
+
       continue;
     }
-
-    // Form Lable : End
-    if (System.Message[Index] == ';') {
-      SetColor(9, 0);
-      continue;
-    }
-
+    
     printf("%c", System.Message[Index]);
   }
-
-  fclose(LocalFilePath);
 
   return 1;
 }
 
 
 
+// 颜色转换器
 
 
 
