@@ -3,10 +3,12 @@
 #ifndef statement_H_INCLUDED
 #define statement_H_INCLUDED
 
+void StartConsole(void*);
 int AwwCalculator();
 
-// 合法性验证 : 检查用户层 UserSurface.String 每一位字符是否有效并且表达式无误
 int VerifyDataRational();
+// 合法性验证 : 检查用户层 UserSurface.String 每一位字符是否有效并且表达式无误
+int VerifyDataRational_Symbol();
 // 合法性验证分支 : 验证内部符号
 int VerifyDataRational_Symbol_InternalSymbol();
 // 合法性验证分支 : 验证连续内部符号 [未启用]
