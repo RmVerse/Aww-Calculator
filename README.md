@@ -4,7 +4,7 @@
   :)
 
 + ## News.  
-  I think i will like.  
+  The AwwCalculator will is join The [Aww-Artificial-Assistant](https://github.com/bre97-web/Aww-Artificial-Assistant)  
 
 # Documents  
 + ## Informations
@@ -17,7 +17,7 @@
   > But a++ is a+1  
   
 + ## Characteristic
-  **Smart Calculation will give beautiful Result for your questions.**  
+  **Smart AwwCalculation will give beautiful Result for your questions.**  
   - Basic Process  
   - Profession Process  
   - SetUp unknown var  
