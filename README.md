@@ -4,7 +4,7 @@
   :)
 
 + ## News.  
-  The AwwCalculator will is join The [Aww-Artificial-Assistant](https://github.com/bre97-web/Aww-Artificial-Assistant)  
+  The AwwCalculator will is joining The [Aww-Artificial-Assistant](https://github.com/bre97-web/Aww-Artificial-Assistant)  
 
 # Documents  
 + ## Informations
