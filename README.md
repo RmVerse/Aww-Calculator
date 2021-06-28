@@ -10,9 +10,9 @@
 + ## Informations
   This is a convenient calculator to my own use.  
   **It include Basic and Prefession process.**  
-  _512*1024_  
-  _sin60*2_  
-  _a=0 : a+++_  
+  - _512*1024_  
+  - _sin60*2_  
+  - _a=0 : a+++_  
   > In This AwwCalculator , a+++ is a+1+1+1.  
   > But a++ is a+1  
   
