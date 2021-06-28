@@ -9,18 +9,26 @@
 # Documents  
 + ## Informations
   This is a convenient calculator to my own use.  
-  **It include Basic and Prefession process.**  
-  - _512*1024_  
-  - _sin60*2_  
-  - _a=0 : a+++_  
-  > In This AwwCalculator , a+++ is a+1+1+1.  
-  > But a++ is a+1  
+  * **It include Basic and Prefession process.**  
+  
+    | Language     | Description             |
+    | :---         | :---                    |
+    |_512*1024_    | Basic Process           |  
+    |_sin60*2_     | Basic Process           |  
+    |_a=0 : a+++_  | Prefession            |  
+    
+  **In This AwwCalculator**  
+  * Basic Process
+
+  * Prefession Process
+    > a+++ is a+1+1+1  
+      But a++ is a+1  
   
 + ## Characteristic
   **Smart AwwCalculation will give beautiful Result for your questions.**  
-  - Basic Process  
-  - Profession Process  
-  - SetUp unknown var  
+   - Basic Process  
+   - Profession Process  
+   - SetUp unknown var  
   
 + ## How Use
   
