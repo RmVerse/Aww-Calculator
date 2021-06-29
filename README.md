@@ -52,6 +52,16 @@
       num=2 : num/2 Result:1  
     > 2. Multiple known var  
       one=1,two=2 : one->two Result:1(one),3(two)  
+  * Error Check  
+    > **Logic Error**  
+    > 1. 0+0  
+         ~~~~~ No effect  
+         0*0  
+         ~~~~~ No effect  
+    > 2. 0+t
+         ~~~~~ Var no Delimit    
+           
+  
   
 + ## How Use  
   1. Start Program  
