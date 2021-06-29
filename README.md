@@ -18,9 +18,12 @@
     |_a=0 : a+++_  | Prefession              |  
   
   **Operator**
-    | Language     | Description             |  
-    | :---         | :---                    |  
-    |    ||
+    | Language     | Description             | Classic Process | 
+    | :---         | :---                    | :---            |
+    | + - * /      | Basic operators         | Basic           |
+    | sin cos tan  | Function                | Basic           |
+    | :            | Next One                | Prefession      |
+    | ->           | Give value              | Prefession      |
  
 
 + ## Characteristic  
