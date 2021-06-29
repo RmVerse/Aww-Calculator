@@ -16,8 +16,15 @@
     |_512*1024_    | Basic Process           |  
     |_sin60*2_     | Basic Process           |  
     |_a=0 : a+++_  | Prefession              |  
+  
+  **Operator**
+    | Language     | Description             |  
+    | :---         | :---                    |  
+    |    ||
+ 
 
-  **In This AwwCalculator**  
++ ## Characteristic  
+  **Smart AwwCalculation will give beautiful Result for your questions.**  
   * Basic Process  
     > **Basic operations**  
     > 1. Basic  
@@ -41,13 +48,7 @@
     > 1. One known var  
       num=2 : num/2 Result:1  
     > 2. Multiple known var  
-      one=1,two=2 : one->two Result:1(one),3(two)   
-
-+ ## Characteristic  
-  **Smart AwwCalculation will give beautiful Result for your questions.**  
-   - Basic Process  
-   - Profession Process  
-   - SetUp unknown var  
+      one=1,two=2 : one->two Result:1(one),3(two)  
   
 + ## How Use  
   1. Start Program  
