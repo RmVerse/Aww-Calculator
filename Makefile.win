@@ -25,5 +25,5 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-Code/Main.o: Code\Main.c Code\Descript.h Code\Platform.Win64.h Code\ShortcutKey.h
+Code/Main.o: Code\Main.c Code\Descript.h Code\ShortcutKey.h
 	$(CC) -c Code/Main.c -o Code/Main.o $(CFLAGS) 
