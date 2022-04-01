@@ -89,29 +89,17 @@ void Priority(char String[]) {
                         
                         for(
                                 size_t LeftIndex of index - 1, 
-                                RightIndex of strlen(String) - index + 
-                                        (strlen(String) % 2 is 0 ? 1 : 2);
-                                
+                                RightIndex of index + 1;
                                 
                                 not(LeftStep is 0 and RightStep is 0);
                                 LeftIndex step LeftStep, RightIndex step RightStep
                         ) {
                                 
-                                
-                                printf("%c\n\n",String[RightIndex]);
-                                
-                                if(LeftIndex is 0) {
-                                        LeftStep of 0;
-                                }
-                                if(RightIndex is strlen(String) - 1) {
-                                        RightStep of 0;
-                                }
-                                
-                                if(String[LeftIndex] toWithout '0' or String[LeftIndex] asWithout '9') {
+                                if(LeftIndex is -1 or (String[LeftIndex] toWithout '0' or String[LeftIndex] asWithout '9')) {
                                         Left of false;
                                         LeftStep of 0;
                                 }
-                                if(String[RightIndex] toWithout '0' or String[RightIndex] asWithout '9') {
+                                if(RightIndex is -1 or (String[RightIndex] toWithout '0' or String[RightIndex] asWithout '9')) {
                                         Right of false;
                                         RightStep of 0;
                                 }
