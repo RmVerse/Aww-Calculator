@@ -1,32 +1,32 @@
 # Project: Aww
-# Makefile created by Dev-C++ 6.5
+# Makefile created by Red Panda C++ 0.14.0
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = Code/Main.o Code/Platform.Win64.o
 LINKOBJ  = Code/Main.o Code/Platform.Win64.o
-LIBS     = -L"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib" -L"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/lib" -static-libstdc++ -static-libgcc -Wunused-variable
-INCS     = -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed"
-CXXINCS  = -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0/i686-w64-mingw32" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0/backward"
+CLEANOBJ  =  Code/Main.o Code/Platform.Win64.o
+LIBS     =  -static
+INCS     =  
+CXXINCS  =  
 BIN      = Aww.exe
-CXXFLAGS = $(CXXINCS) -std=c99 -Werror -Wunused-variable
-ENCODINGS = -finput-charset=utf-8 -fexec-charset=gbk
-CFLAGS   = $(INCS) -std=c99 -Werror -Wunused-variable
-RM       = rm.exe -f
+CXXFLAGS = $(CXXINCS)  -std=c99 -Werror
+CFLAGS   = $(INCS)  -std=c99 -Werror
+RM       = del /q /f
 
 .PHONY: all all-before all-after clean clean-custom
 
 all: all-before $(BIN) all-after
 
 clean: clean-custom
-	${RM} $(OBJ) $(BIN)
+	${RM} $(CLEANOBJ) $(BIN) > NUL 2>&1
 
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-Code/Main.o: Code\Main.c Code\Descript.h Code\Platform.Win64.h
-	$(CC) -c Code/Main.c -o Code/Main.o $(CFLAGS) 
+Code/Main.o: Code/Main.c Code/Descript.h Code/Platform.Win64.h
+	$(CC) -c E:/ProgramForWin32/Project/Aww-Calculator/Code/Main.c -o Code/Main.o $(CFLAGS) 
 
-Code/Platform.Win64.o: Code\Platform.Win64.c Code\Platform.Win64.h
-	$(CC) -c Code/Platform.Win64.c -o Code/Platform.Win64.o $(CFLAGS) 
+Code/Platform.Win64.o: Code/Platform.Win64.c Code/Platform.Win64.h
+	$(CC) -c E:/ProgramForWin32/Project/Aww-Calculator/Code/Platform.Win64.c -o Code/Platform.Win64.o $(CFLAGS) 
