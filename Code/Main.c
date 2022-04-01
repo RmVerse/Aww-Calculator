@@ -10,20 +10,30 @@
 #define or ||
 #define in ==
 #define is ==
+#define not !
 
+// only used at for( ...; ...; index step 2)
+//              for( ...; ...; index += 2)
+#define step +=
 
 
 #define as(x) >=x
 #define to(y) <=y
 
+#define asWithout(x) >x
+#define toWithout(y) <y
+
+#define without(x) -x
+#define with(y) +y
+
+
 
 bool In(char s, char String[]) {
 	
-	for(size_t index = 0; index < strlen(String); index ++) if(s == String[index]) return true;
+	for(size_t index = 0; index toWithout(strlen(String)); index step(1)) if(s is String[index]) return true;
 	
 	return false;
 }
-
 
 char* ReadLine(char String[]) {
 	
@@ -34,9 +44,9 @@ char* ReadLine(char String[]) {
 
 char* Format(char String[]) {
 
-	for(size_t index = 0; index < strlen(String); index ++) {
+	for(size_t index = 0; index toWithout(strlen(String)); index step(1)) {
 		
-		if(String[index] >= '0' and String[index] <= '9') continue;
+		if(String[index] as('0') and String[index] to('9')) continue;
 		if(In(String[index],"+-*/")) continue;
 		
 		String[index] = '\x20';
@@ -54,7 +64,9 @@ int* WriteNums(char String[], int Index) {
 	
 	memset(result, 0, sizeof(int) * Index);
 
-	for(size_t index = 0,n = 0; index < strlen(String); index ++) {
+
+
+	for(size_t index = 0, n = 0; index toWithout(strlen(String)); index step(1)) {
 			
 		if(String[index] as('0') and String[index] to('9')) {
 			result[n] = result[n] + String[index] - 48;
@@ -86,9 +98,9 @@ char* WriteSymbols(char String[], int Index) {
 	
 	result = (char* )realloc(result, sizeof(char) * Index);
 	
-	memset(result, 0, sizeof(String));
+	memset(result, 0, sizeof(char) * Index);
 
-	for(size_t index = 0,n = 0; index < strlen(String); index ++) {
+	for(size_t index = 0,n = 0; index toWithout(strlen(String)); index step(1)) {
 			
 		if(In(String[index], "+-*/")) {
 			result[n] = String[index];
@@ -138,7 +150,27 @@ int Computer(int num1, int num2, char Symbol) {
 }
 
 
+size_t CountNums(char String[]) {
+	
+	size_t Count = 0;
+	
+	for(size_t index = 0; index toWithout(strlen(String)); index step(1)) if(String[index] as('0') and String[index] to('9')) {
+		Count ++;
+	}
+	
+	return Count;
+}
 
+size_t CountSymbols(char String[]) {
+	
+	size_t Count = 0;
+	
+	for(size_t index = 0; index toWithout(strlen(String)); index step(1)) if(In(String[index], "+-*/")) {
+		Count ++;
+	}
+	
+	return Count;
+}
 
 int main(void) {
 
@@ -147,37 +179,35 @@ int main(void) {
 	strcpy(Formula, ReadLine(Formula));
 	strcpy(Formula, Format(Formula));
 	
-	int* nums = WriteNums(Formula,3);
-	char* symbols = WriteSymbols(Formula,10);
+	int* nums = NULL;
+	char* symbols = NULL;
+
+	size_t NumsLength = CountNums(Formula);
+	size_t SymbolsLength = CountSymbols(Formula);
+
+	nums = WriteNums(Formula, NumsLength);
+	symbols = WriteSymbols(Formula, SymbolsLength);
 	
-	
-	for(int i = 0; i to(sizeof(nums) / sizeof(nums[0])) - 1; i ++) {
-		printf("%d - ", nums[i]);
-	}
-	
-	
-	
+
 	
 	
 	
 	int r = 0;
-	for(size_t SymbolsIndex = 0, NumsIndex = 0; SymbolsIndex <= strlen(symbols); SymbolsIndex ++, NumsIndex += 2) {
+	for(size_t SymbolsIndex = 0, NumsIndex = 1; SymbolsIndex toWithout(SymbolsLength); SymbolsIndex step(1), NumsIndex step(1)) {
 		
-		if((NumsIndex + 1) as(sizeof(nums) / sizeof(nums[0]))) {
-			
-			r = r + Computer(nums[NumsIndex], 0, symbols[SymbolsIndex]);
-			printf("r + Êý×Ö%d  = %d",nums[NumsIndex], r);
-			
+		if(NumsIndex == NumsLength) {
 			break;
 		}
-		r = r + Computer(nums[NumsIndex], nums[NumsIndex + 1], symbols[SymbolsIndex]);
 		
-		printf("Êý×Ö%d Óë %d = %d",nums[NumsIndex], nums[NumsIndex+1], r);
-	
+		if(NumsIndex is 1) {
+			r = Computer(nums[NumsIndex - 1], nums[NumsIndex], symbols[SymbolsIndex]);
+			continue;
+		}
+
+		r = Computer(r, nums[NumsIndex], symbols[SymbolsIndex]);		
 	}
 	
-
-	
+	printf("%d", r);
 	
 	
 	
