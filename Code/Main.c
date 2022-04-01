@@ -183,47 +183,31 @@ size_t CountSymbols(char String[]) {
 
 int main(void) {
         
-        
+        // set window size and color.
         SetWindowsSize(30, 120);
         system("color F0");
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
 	char Formula[512] = "";
 	
+	// get value from keyboard.
 	strcpy(Formula, ReadLine(Formula));
 	
-        
-        
-        
-        
+        // remove speacial symbols.
         strcpy(Formula, Format(Formula));
 	
+	
+        	
+        	
 	int* nums = NULL;
 	char* symbols = NULL;
-
-	size_t NumsLength = CountNums(Formula);
-	size_t SymbolsLength = CountSymbols(Formula);
 
 	nums = WriteNums(Formula, NumsLength);
 	symbols = WriteSymbols(Formula, SymbolsLength);
 	
-
-	
-	
-	
+	size_t NumsLength = CountNums(Formula);
+        size_t SymbolsLength = CountSymbols(Formula);
 	int r = 0;
 	for(size_t SymbolsIndex = 0, NumsIndex = 1; SymbolsIndex toWithout(SymbolsLength); SymbolsIndex step(1), NumsIndex step(1)) {
 		
@@ -239,6 +223,7 @@ int main(void) {
 		r = Computer(r, nums[NumsIndex], symbols[SymbolsIndex]);		
 	}
 	
+	// r is that result of computer.
 	printf("%d", r);
 	
 	
