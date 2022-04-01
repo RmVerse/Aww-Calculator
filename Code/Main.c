@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "Platform.Win64.h"
 #include "Descript.h"
 
 #define and &&
@@ -37,7 +38,16 @@ bool In(char s, char String[]) {
 
 char* ReadLine(char String[]) {
 	
-	scanf("%s", String);
+	//scanf("%s", String);
+	
+	char c = 0;
+	c = getchar();
+	
+	for(size_t index = 0; c != '\n'; c = getchar()) if(c != '\x20') {
+                String[index] = c;
+                index ++;
+        }
+	
 	
 	return String;
 }
@@ -46,10 +56,9 @@ char* Format(char String[]) {
 
 	for(size_t index = 0; index toWithout(strlen(String)); index step(1)) {
 		
-		if(String[index] as('0') and String[index] to('9')) continue;
-		if(In(String[index],"+-*/")) continue;
+		if(!(String[index] as('0') and String[index] to('9'))) continue;
+		if(!In(String[index],"+-*/")) continue;
 		
-		String[index] = '\x20';
 	}
 
 
@@ -173,11 +182,34 @@ size_t CountSymbols(char String[]) {
 }
 
 int main(void) {
+        
+        
+        SetWindowsSize(30, 120);
+        system("color F0");
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 	char Formula[512] = "";
 	
 	strcpy(Formula, ReadLine(Formula));
-	strcpy(Formula, Format(Formula));
+	
+        
+        
+        
+        
+        strcpy(Formula, Format(Formula));
 	
 	int* nums = NULL;
 	char* symbols = NULL;
@@ -195,7 +227,7 @@ int main(void) {
 	int r = 0;
 	for(size_t SymbolsIndex = 0, NumsIndex = 1; SymbolsIndex toWithout(SymbolsLength); SymbolsIndex step(1), NumsIndex step(1)) {
 		
-		if(NumsIndex == NumsLength) {
+		if(NumsIndex is NumsLength) {
 			break;
 		}
 		

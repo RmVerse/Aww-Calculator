@@ -1,17 +1,18 @@
 # Project: Aww
-# Makefile created by Dev-C++ 5.11
+# Makefile created by Dev-C++ 6.5
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = Code/Main.o
-LINKOBJ  = Code/Main.o
-LIBS     = -L"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/lib" -L"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
-INCS     = -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/include" -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/x86_64-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/include" -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/x86_64-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/ProgramForWin32/Dev-Cpp 5.9/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+OBJ      = Code/Main.o Code/Platform.Win64.o
+LINKOBJ  = Code/Main.o Code/Platform.Win64.o
+LIBS     = -L"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib" -L"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/lib" -static-libstdc++ -static-libgcc -Wunused-variable
+INCS     = -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed"
+CXXINCS  = -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/i686-w64-mingw32/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/lib/gcc/i686-w64-mingw32/10.2.0/include-fixed" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0/i686-w64-mingw32" -I"E:/ProgramForWin32/Dev-Cpp 6.5/Dev-Cpp/MinGW32/include/c++/10.2.0/backward"
 BIN      = Aww.exe
-CXXFLAGS = $(CXXINCS) -std=c99 -Werror
-CFLAGS   = $(INCS) -std=c99 -Werror
+CXXFLAGS = $(CXXINCS) -std=c99 -Werror -Wunused-variable
+ENCODINGS = -finput-charset=utf-8 -fexec-charset=gbk
+CFLAGS   = $(INCS) -std=c99 -Werror -Wunused-variable
 RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -24,5 +25,8 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-Code/Main.o: Code/Main.c
-	$(CC) -c Code/Main.c -o Code/Main.o $(CFLAGS)
+Code/Main.o: Code\Main.c Code\Descript.h Code\Platform.Win64.h
+	$(CC) -c Code/Main.c -o Code/Main.o $(CFLAGS) 
+
+Code/Platform.Win64.o: Code\Platform.Win64.c Code\Platform.Win64.h
+	$(CC) -c Code/Platform.Win64.c -o Code/Platform.Win64.o $(CFLAGS) 
