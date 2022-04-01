@@ -2,14 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "Descript.h"
 
-#define and &
+#define and &&
 #define or ||
 #define in ==
 #define is ==
 
+
+
+#define as(x) >=x
+#define to(y) <=y
 
 
 bool In(char s, char String[]) {
@@ -41,11 +46,38 @@ char* Format(char String[]) {
 	return String;
 }
 
-int Write(char String[]) {
+int* Write(char String[], int Index) {
+
+	int* result = NULL;
+	
+	result = (int* )realloc(result, sizeof(int) * Index);
+	
+	memset(result, 0, sizeof(String));
+
+	for(size_t index = 0,n = 0; index < strlen(String); index ++) {
+			
+		if(String[index] as('0') and String[index] to('9')) {
+			result[n] = result[n] + String[index] - 48;
+			
+			if(index + 1 < strlen(String) and String[index + 1] as('0') and String[index + 1] to('9')) {
+				result[n] *= 10;
+				continue;
+			}
+			
+			Index --;
+			n ++;
+		}
+		
+		
+		
+		if(Index is 0) {
+			break;
+		}
+		
+	}
 
 
-
-
+	return result;
 }
 
 int main(void) {
@@ -55,7 +87,12 @@ int main(void) {
 	strcpy(Formula, ReadLine(Formula));
 	
 	strcpy(Formula, Format(Formula));
-	printf("%s", Formula);
+	
+	printf("%d", Write(Formula,2)[1]);
+	
+	
+	
+	
 	
 	return 0;
 }
