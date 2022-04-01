@@ -46,13 +46,13 @@ char* Format(char String[]) {
 	return String;
 }
 
-int* Write(char String[], int Index) {
+int* WriteNums(char String[], int Index) {
 
 	int* result = NULL;
 	
 	result = (int* )realloc(result, sizeof(int) * Index);
 	
-	memset(result, 0, sizeof(String));
+	memset(result, 0, sizeof(int) * Index);
 
 	for(size_t index = 0,n = 0; index < strlen(String); index ++) {
 			
@@ -80,15 +80,103 @@ int* Write(char String[], int Index) {
 	return result;
 }
 
+char* WriteSymbols(char String[], int Index) {
+	
+	char* result = NULL;
+	
+	result = (char* )realloc(result, sizeof(char) * Index);
+	
+	memset(result, 0, sizeof(String));
+
+	for(size_t index = 0,n = 0; index < strlen(String); index ++) {
+			
+		if(In(String[index], "+-*/")) {
+			result[n] = String[index];
+			
+			Index --;
+			n ++;
+		}
+		
+		
+		
+		if(Index is 0) {
+			break;
+		}
+		
+	}
+
+
+	return result;	
+	
+}
+
+
+int Computer(int num1, int num2, char Symbol) {
+
+	int result = 0;
+
+	switch(Symbol) {
+		case '+':
+			result = num1 + num2;
+			break;
+		case '-':
+			result = num1 - num2;
+			break;
+		case '*':
+			result = num1 * num2;
+			break;
+		case '/':
+			result = num1 / num2;
+			break;
+		
+		default:
+			break;
+	}
+
+
+	return result;
+}
+
+
+
+
 int main(void) {
 
 	char Formula[512] = "";
 	
 	strcpy(Formula, ReadLine(Formula));
-	
 	strcpy(Formula, Format(Formula));
 	
-	printf("%d", Write(Formula,2)[1]);
+	int* nums = WriteNums(Formula,3);
+	char* symbols = WriteSymbols(Formula,10);
+	
+	
+	for(int i = 0; i to(sizeof(nums) / sizeof(nums[0])) - 1; i ++) {
+		printf("%d - ", nums[i]);
+	}
+	
+	
+	
+	
+	
+	
+	int r = 0;
+	for(size_t SymbolsIndex = 0, NumsIndex = 0; SymbolsIndex <= strlen(symbols); SymbolsIndex ++, NumsIndex += 2) {
+		
+		if((NumsIndex + 1) as(sizeof(nums) / sizeof(nums[0]))) {
+			
+			r = r + Computer(nums[NumsIndex], 0, symbols[SymbolsIndex]);
+			printf("r + Êý×Ö%d  = %d",nums[NumsIndex], r);
+			
+			break;
+		}
+		r = r + Computer(nums[NumsIndex], nums[NumsIndex + 1], symbols[SymbolsIndex]);
+		
+		printf("Êý×Ö%d Óë %d = %d",nums[NumsIndex], nums[NumsIndex+1], r);
+	
+	}
+	
+
 	
 	
 	
