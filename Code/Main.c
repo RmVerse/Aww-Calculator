@@ -3,12 +3,13 @@
 #include <string.h>
 #include <stdbool.h>
 
-
+#include "Descript.h"
 
 #define and &
 #define or ||
 #define in ==
 #define is ==
+
 
 
 bool In(char s, char String[]) {
@@ -40,6 +41,12 @@ char* Format(char String[]) {
 	return String;
 }
 
+int Write(char String[]) {
+
+
+
+
+}
 
 int main(void) {
 
