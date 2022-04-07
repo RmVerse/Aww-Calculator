@@ -6,7 +6,7 @@
 |![Platform](https://img.shields.io/badge/Platform-Windows-lightgreen)|
 
 
-![Logo](Resources/Pictures/logo.png)
+![Logo](Resources/Pictures/Logo.png)
 
 # Documents  
 + ## Informations  
