@@ -6,7 +6,7 @@ Ver = 3
 ObjFiles = 
 Includes = 
 Libs = 
-PrivateResource = 
+PrivateResource = Aww_private.rc
 ResourceIncludes = 
 MakeIncludes = 
 Compiler = 
@@ -25,37 +25,37 @@ UseCustomMakefile = 0
 CustomMakefile = 
 CommandLine = 
 Folders = 
-IncludeVersionInfo = 0
+IncludeVersionInfo = 1
 SupportXPThemes = 0
 CompilerSet = 0
-CompilerSettings = 00000000a0000010000000000
-UnitCount = 4
+CompilerSettings = 000000a1c0000000000010001
+UnitCount = 5
 UsePrecompiledHeader = 0
 PrecompiledHeader = 
-UseUTF8 = 0
+UseUTF8 = 1
 CompilerSetType = 0
 StaticLink = 1
 AddCharset = 1
-Encoding = AUTO
+Encoding = UTF-8
 
 
 [VersionInfo]
-Major = 1
+Major = 0
 Minor = 0
 Release = 0
-Build = 0
+Build = 9
 LanguageID = 1033
 CharsetID = 1252
-CompanyName = 
-FileVersion = 
+CompanyName = RmVerse
+FileVersion = 0.0.0.0
 FileDescription = Developed using the Dev-C++ IDE
-InternalName = 
+InternalName = awwAssistant
 LegalCopyright = 
 LegalTrademarks = 
-OriginalFilename = 
-ProductName = 
-ProductVersion = 
-AutoIncBuildNr = 0
+OriginalFilename = Aww-Calculator
+ProductName = Calculator
+ProductVersion = 0.0.0.0
+AutoIncBuildNr = 1
 SyncProduct = 1
 
 
@@ -82,9 +82,9 @@ Link = 1
 Priority = 1000
 OverrideBuildCmd = 0
 BuildCmd = 
-DetectEncoding = 1
+DetectEncoding = 0
 Encoding = 0
-FileEncoding = AUTO
+FileEncoding = UTF-8
 
 
 [Unit3]
@@ -113,3 +113,15 @@ BuildCmd =
 DetectEncoding = 1
 Encoding = 0
 FileEncoding = AUTO
+
+
+[Unit5]
+FileName = FunctionDocument.md
+Folder = 
+Compile = 1
+Link = 1
+Priority = 1000
+OverrideBuildCmd = 0
+BuildCmd = 
+DetectEncoding = 0
+FileEncoding = UTF-8

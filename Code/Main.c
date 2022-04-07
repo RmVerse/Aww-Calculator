@@ -30,9 +30,9 @@
 
 
 
-bool In(char s, char String[]) {
+static bool In(const char s, const char Range[]) {
         
-        for(size_t index = 0; index toWithout strlen(String); index step 1) if(s is String[index]) return true;
+        for(size_t index = 0; index toWithout strlen(Range); index step 1) if(s is Range[index]) return true;
         
         return false;
 }
@@ -240,7 +240,37 @@ size_t CountSymbols(char String[]) {
         return Count;
 }
 
-
+void ResultPut(char Formula[]) {
+	
+	int* nums = NULL;
+	char* symbols = NULL;
+	
+	
+	
+	size_t NumsLength = CountNums(Formula);
+	size_t SymbolsLength = CountSymbols(Formula);
+	
+	nums = WriteNums(Formula, NumsLength);
+	symbols = WriteSymbols(Formula, SymbolsLength);
+	
+	int r = 0;
+	for(size_t SymbolsIndex = 0, NumsIndex = 1; SymbolsIndex toWithout SymbolsLength; SymbolsIndex step 1, NumsIndex step 1) {
+		
+		if(NumsIndex is NumsLength) {
+			break;
+		}
+		
+		if(NumsIndex is 1) {
+			r = Computer(nums[NumsIndex - 1], nums[NumsIndex], symbols[SymbolsIndex]);
+			continue;
+		}
+		
+		r = Computer(r, nums[NumsIndex], symbols[SymbolsIndex]);		
+	}
+	
+	// r is that result of computer.
+	printf("%d", r);
+}
 
 
 
@@ -248,7 +278,11 @@ size_t CountSymbols(char String[]) {
 
 
 int main(void) {
+
+	
         
+		/*
+	
         // set window size and color.
         SetWindowsSize(30, 120);
         system("color F0");
@@ -263,43 +297,18 @@ int main(void) {
         // remove speacial symbols.
         strcpy(Formula, Format(Formula));
         
+		// computer priority of high.
         Priority(Formula);
         
+        // result is put to console window.
+        ResultPut(Formula);
+        */
+		
+		
         
-        /*
-        
-        int* nums = NULL;
-        char* symbols = NULL;
         
         
-        
-        size_t NumsLength = CountNums(Formula);
-        size_t SymbolsLength = CountSymbols(Formula);
-        
-        nums = WriteNums(Formula, NumsLength);
-        symbols = WriteSymbols(Formula, SymbolsLength);
-        
-        int r = 0;
-        for(size_t SymbolsIndex = 0, NumsIndex = 1; SymbolsIndex toWithout SymbolsLength; SymbolsIndex step 1, NumsIndex step 1) {
                 
-                if(NumsIndex is NumsLength) {
-                        break;
-                }
-                
-                if(NumsIndex is 1) {
-                        r = Computer(nums[NumsIndex - 1], nums[NumsIndex], symbols[SymbolsIndex]);
-                        continue;
-                }
-                
-                r = Computer(r, nums[NumsIndex], symbols[SymbolsIndex]);		
-        }
-        
-        // r is that result of computer.
-        printf("%d", r);
-        
-        
-        
-                */
         return 0;
 }
 

@@ -4,15 +4,16 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = Code/Main.o Code/Platform.Win64.o
-LINKOBJ  = Code/Main.o Code/Platform.Win64.o
-CLEANOBJ  =  Code/Main.o Code/Platform.Win64.o
-LIBS     =  -static
+RES      = Aww_private.res
+OBJ      = Code/Main.o Code/Platform.Win64.o $(RES)
+LINKOBJ  = Code/Main.o Code/Platform.Win64.o $(RES)
+CLEANOBJ  =  Code/Main.o Code/Platform.Win64.o $(RES)
+LIBS     =  -m32 -s -static
 INCS     =  
 CXXINCS  =  
 BIN      = Aww.exe
-CXXFLAGS = $(CXXINCS)  -std=c99 -Werror
-CFLAGS   = $(INCS)  -std=c99 -Werror
+CXXFLAGS = $(CXXINCS)  -O2 -m32 -std=c17 -pipe
+CFLAGS   = $(INCS)  -O2 -m32 -std=c17 -pipe
 RM       = del /q /f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -26,7 +27,11 @@ $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
 Code/Main.o: Code/Main.c Code/Descript.h Code/Platform.Win64.h
-	$(CC) -c E:/ProgramForWin32/Project/Aww-Calculator/Code/Main.c -o Code/Main.o $(CFLAGS) 
+	$(CC) -c "E:/@TEMP_IS_DELETING (22)/Project/Aww-Calculator/Code/Main.c" -o Code/Main.o $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
 
 Code/Platform.Win64.o: Code/Platform.Win64.c Code/Platform.Win64.h
-	$(CC) -c E:/ProgramForWin32/Project/Aww-Calculator/Code/Platform.Win64.c -o Code/Platform.Win64.o $(CFLAGS) 
+	$(CC) -c "E:/@TEMP_IS_DELETING (22)/Project/Aww-Calculator/Code/Platform.Win64.c" -o Code/Platform.Win64.o $(CFLAGS) 
+
+Aww_private.res: Aww_private.rc 
+	$(WINDRES) -i Aww_private.rc -F pe-i386 --input-format=rc -o Aww_private.res -O coff 
+
