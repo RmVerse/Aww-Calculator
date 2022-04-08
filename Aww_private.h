@@ -5,11 +5,11 @@
 #define Aww_private_rc
 
 /* VERSION DEFINITIONS */
-#define VER_STRING	"0.0.0.9"
+#define VER_STRING	"0.0.0.54"
 #define VER_MAJOR	0
 #define VER_MINOR	0
 #define VER_RELEASE	0
-#define VER_BUILD	9
+#define VER_BUILD	54
 #define COMPANY_NAME	"RmVerse"
 #define FILE_VERSION	"0.0.0.0"
 #define FILE_DESCRIPTION	"Developed using the Dev-C++ IDE"

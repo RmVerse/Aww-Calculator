@@ -26,7 +26,7 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-Code/Main.o: Code/Main.c Code/Descript.h Code/Platform.Win64.h
+Code/Main.o: Code/Main.c Code/Platform.Win64.h Code/Descript.h
 	$(CC) -c "E:/@TEMP_IS_DELETING (22)/Project/Aww-Calculator/Code/Main.c" -o Code/Main.o $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
 
 Code/Platform.Win64.o: Code/Platform.Win64.c Code/Platform.Win64.h
